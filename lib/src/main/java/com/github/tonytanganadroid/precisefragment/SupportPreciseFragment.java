@@ -52,7 +52,6 @@ public abstract class SupportPreciseFragment extends Fragment {
     }
 
 
-
     private void startIfNecessary(boolean triggerByOnResumeOrOnPause) {
         if (readyToBecomeVisible()) {
             currentVisibility = true;
@@ -64,8 +63,14 @@ public abstract class SupportPreciseFragment extends Fragment {
         return !currentVisibility && isResumed();
     }
 
+    /**
+     * @param triggeredByOnResume true if the event is triggered by onResume event, false otherwise.
+     */
     public abstract void onFragmentVisible(boolean triggeredByOnResume);
 
+    /**
+     * @param triggeredByOnPause true if the event is triggered by onPause event, false otherwise.
+     */
     public abstract void onFragmentInvisible(boolean triggeredByOnPause);
 
 
