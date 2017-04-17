@@ -9,8 +9,6 @@ bin/
 gen/
 out/
 gradlew
-gradle
-gradle.properties
 build/
 
 # Local configuration file (sdk path, etc)
