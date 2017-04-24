@@ -2,65 +2,135 @@ package com.github.tonytanganadroid.precisefragment;
 
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
+
+import hugo.weaving.DebugLog;
 
 public abstract class SupportPreciseFragment extends Fragment {
 
-    private boolean newVisibility;
-    private boolean currentVisibility;
+    private boolean upcomingFragmentVisibilityToUser;
+    private boolean currentFragmentVisibilityToUser;
+    private boolean shouldForceHideFragment;
+    private boolean hasFragmentEverOnResumed;
 
 
+    @DebugLog
     @Override
-    final public void onResume() {
+    public void onResume() {
         super.onResume();
-        toggleVisibility(true);
+        markFragmentEverOnResumed();
+        updateUpcomingFramgentVisibility(true);
+        toggleFragmentVisibility(true);
     }
 
 
-    @Override
-    final public void onPause() {
-        super.onPause();
-        stopIfNecessary(true);
-
-    }
-
-
+    @DebugLog
     @Override
     final public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        this.newVisibility = isVisibleToUser;
-        toggleVisibility(false);
+        toggleFragmentVisibilityForceHiddenStatus(isVisibleToUser);
+        updateUpcomingFramgentVisibility(isVisibleToUser);
+        toggleFragmentVisibility(false);
     }
 
 
-    private void toggleVisibility(boolean triggerByOnResumeOrOnPause) {
-        if (toBeVisible()) {
-            startIfNecessary(triggerByOnResumeOrOnPause);
+    @DebugLog
+    @Override
+    public void onPause() {
+        super.onPause();
+        makeFragmentInvisible(true);
+
+    }
+
+    private void markFragmentVisibilityForceHiddenToTrue() {
+        shouldForceHideFragment = true;
+    }
+
+    private void markFragmentVisibilityForceHiddenToFalse() {
+        shouldForceHideFragment = false;
+    }
+
+    private void toggleFragmentVisibilityForceHiddenStatus(boolean showFragment) {
+        if (showFragment) {
+            markFragmentVisibilityForceHiddenToFalse();
         } else {
-            stopIfNecessary(triggerByOnResumeOrOnPause);
+            markFragmentVisibilityForceHiddenToTrue();
         }
     }
 
-    private boolean toBeVisible() {
-        return this.newVisibility;
+
+    @DebugLog
+    private void updateUpcomingFramgentVisibility(boolean upcomingFragmentVisibility) {
+        this.upcomingFragmentVisibilityToUser = upcomingFragmentVisibility;
     }
 
-    private void stopIfNecessary(boolean fromResume) {
-        if (currentVisibility) {
-            currentVisibility = false;
+
+    private void toggleFragmentVisibility(boolean triggerByOnResumeOrOnPause) {
+        if (resumed()) {
+            if (isFragmentBecomingVisibleToUser()) {
+                makeFragmentVisible(triggerByOnResumeOrOnPause);
+            } else {
+                makeFragmentInvisible(triggerByOnResumeOrOnPause);
+            }
+        } else {
+            Log.d("SupportPreciseFragment", "toggleFragmentVisibility : Ignored as fragment never has been on resumed");
+        }
+
+    }
+
+    private boolean resumed() {
+        return hasFragmentEverOnResumed;
+    }
+
+    private boolean isFragmentBecomingVisibleToUser() {
+        return this.upcomingFragmentVisibilityToUser && !shouldForceHideFragment;
+    }
+
+    private void makeFragmentInvisible(boolean fromResume) {
+        if (needToBecomingInvisible()) {
+            markFragmentInvisibleToUser();
             onFragmentInvisible(fromResume);
+        } else {
+            Log.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already invisible to user");
         }
     }
 
+    private void markFragmentInvisibleToUser() {
+        currentFragmentVisibilityToUser = false;
+    }
 
-    private void startIfNecessary(boolean triggerByOnResumeOrOnPause) {
+    private boolean needToBecomingInvisible() {
+        return isFragmentCurrentlyVisibleToUser();
+    }
+
+    private boolean isFragmentCurrentlyVisibleToUser() {
+        return currentFragmentVisibilityToUser;
+    }
+
+
+    private void makeFragmentVisible(boolean triggerByOnResumeOrOnPause) {
         if (readyToBecomeVisible()) {
-            currentVisibility = true;
+            markFragmentVisibleToUser();
             onFragmentVisible(triggerByOnResumeOrOnPause);
+        } else {
+            Log.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already visible to user");
         }
+    }
+
+    private void markFragmentVisibleToUser() {
+        currentFragmentVisibilityToUser = true;
     }
 
     private boolean readyToBecomeVisible() {
-        return !currentVisibility && isResumed();
+        return isResumed() && needToBecomeVisible();
+    }
+
+    private boolean needToBecomeVisible() {
+        return !isFragmentCurrentlyVisibleToUser();
+    }
+
+    private void markFragmentEverOnResumed() {
+        hasFragmentEverOnResumed = true;
     }
 
     /**
