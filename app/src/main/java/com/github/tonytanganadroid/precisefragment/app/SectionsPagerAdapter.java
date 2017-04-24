@@ -11,7 +11,7 @@ import android.support.v13.app.FragmentPagerAdapter;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public static final int COUNT = 3;
+    public static final int COUNT = 4;
 
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -27,20 +27,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
         return COUNT;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "SECTION 1";
-            case 1:
-                return "SECTION 2";
-            case 2:
-                return "SECTION 3";
-        }
-        return null;
+        return "SECTION " + (position + 1);
     }
 }

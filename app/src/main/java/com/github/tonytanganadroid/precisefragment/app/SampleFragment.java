@@ -1,6 +1,9 @@
 package com.github.tonytanganadroid.precisefragment.app;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,14 +22,13 @@ import hugo.weaving.DebugLog;
 public class SampleFragment extends Fragment implements PreciseFragmentDelegate.PreciseFragmentDelegateCallback {
 
 
-    PreciseFragmentDelegate preciseFragmentDelegate = new PreciseFragmentDelegate(this);
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+    PreciseFragmentDelegate preciseFragmentDelegate = null;
     private int sectionNumber;
-
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -38,6 +40,22 @@ public class SampleFragment extends Fragment implements PreciseFragmentDelegate.
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ensurePreciseFragmentDelegate();
+    }
+
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            ensurePreciseFragmentDelegate();
+        }
     }
 
     @Override
@@ -55,7 +73,15 @@ public class SampleFragment extends Fragment implements PreciseFragmentDelegate.
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        ensurePreciseFragmentDelegate();
         preciseFragmentDelegate.setUserVisibleHint(isVisibleToUser);
+
+    }
+
+    private void ensurePreciseFragmentDelegate() {
+        if (preciseFragmentDelegate == null) {
+            preciseFragmentDelegate = new PreciseFragmentDelegate(this);
+        }
     }
 
     @DebugLog
