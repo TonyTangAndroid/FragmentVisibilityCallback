@@ -1,10 +1,6 @@
 package com.github.tonytanganadroid.precisefragment;
 
 
-import android.util.Log;
-
-import hugo.weaving.DebugLog;
-
 public class PreciseFragmentDelegate {
 
     private boolean upcomingFragmentVisibilityToUser;
@@ -17,22 +13,18 @@ public class PreciseFragmentDelegate {
         this.callback = callback;
     }
 
-    @DebugLog
     final public void onResume() {
         markFragmentEverOnResumed();
         updateUpcomingFramgentVisibility(true);
         toggleFragmentVisibility(true);
     }
 
-    @DebugLog
 
     final public void setUserVisibleHint(boolean isVisibleToUser) {
         toggleFragmentVisibilityForceHiddenStatus(isVisibleToUser);
         updateUpcomingFramgentVisibility(isVisibleToUser);
         toggleFragmentVisibility(false);
     }
-
-    @DebugLog
 
     final public void onPause() {
         makeFragmentInvisible(true);
@@ -55,7 +47,6 @@ public class PreciseFragmentDelegate {
         }
     }
 
-    @DebugLog
     private void updateUpcomingFramgentVisibility(boolean upcomingFragmentVisibility) {
         this.upcomingFragmentVisibilityToUser = upcomingFragmentVisibility;
     }
@@ -68,7 +59,7 @@ public class PreciseFragmentDelegate {
                 makeFragmentInvisible(triggerByOnResumeOrOnPause);
             }
         } else {
-            Log.d("SupportPreciseFragment", "toggleFragmentVisibility : Ignored as fragment never has been on resumed");
+            DummyDebugLog.d("SupportPreciseFragment", "toggleFragmentVisibility : Ignored as fragment never has been on resumed");
         }
 
     }
@@ -88,7 +79,7 @@ public class PreciseFragmentDelegate {
                 callback.onFragmentInvisible(fromResume);
             }
         } else {
-            Log.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already invisible to user");
+            DummyDebugLog.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already invisible to user");
         }
     }
 
@@ -111,7 +102,7 @@ public class PreciseFragmentDelegate {
                 callback.onFragmentVisible(triggerByOnResumeOrOnPause);
             }
         } else {
-            Log.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already visible to user");
+            DummyDebugLog.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already visible to user");
         }
     }
 
