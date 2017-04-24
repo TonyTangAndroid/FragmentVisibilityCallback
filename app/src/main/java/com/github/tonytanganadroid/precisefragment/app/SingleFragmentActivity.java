@@ -13,7 +13,7 @@ public class SingleFragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.fl_frame_layout, PlaceholderFragment.newInstance(0)).commit();
+            getFragmentManager().beginTransaction().add(R.id.fl_frame_layout, SampleFragment.newInstance(0)).commit();
         }
     }
 

@@ -43,4 +43,8 @@ dependencies {
 //    compile 'com.github.TonyTangAndroid:PreciseFragment:1.0.3'
 
     compile project(':lib')
+
+    compile "com.android.support:support-v13:25.3.1"
+
+
 }

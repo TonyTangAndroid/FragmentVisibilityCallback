@@ -5,7 +5,7 @@ import android.util.Log;
 
 import hugo.weaving.DebugLog;
 
-public abstract class PreciseFragmentDelegate {
+public class PreciseFragmentDelegate {
 
     private boolean upcomingFragmentVisibilityToUser;
     private boolean currentFragmentVisibilityToUser;
@@ -13,12 +13,12 @@ public abstract class PreciseFragmentDelegate {
     private boolean hasFragmentEverOnResumed;
     private PreciseFragmentDelegateCallback callback;
 
-    public void setPreciseFragmentDelegateCallback(PreciseFragmentDelegateCallback callback) {
+    public PreciseFragmentDelegate(PreciseFragmentDelegateCallback callback) {
         this.callback = callback;
     }
 
     @DebugLog
-    public void onResume() {
+    final public void onResume() {
         markFragmentEverOnResumed();
         updateUpcomingFramgentVisibility(true);
         toggleFragmentVisibility(true);
@@ -34,7 +34,7 @@ public abstract class PreciseFragmentDelegate {
 
     @DebugLog
 
-    public void onPause() {
+    final public void onPause() {
         makeFragmentInvisible(true);
 
     }
