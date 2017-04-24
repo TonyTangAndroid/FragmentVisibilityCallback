@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.tonytanganadroid.precisefragment.PreciseFragmentDelegate;
+import com.github.tonytanganadroid.precise.fragment.callback.PreciseFragmentDelegate;
 
 import hugo.weaving.DebugLog;
 

@@ -1,4 +1,4 @@
-package com.github.tonytanganadroid.precisefragment;
+package com.github.tonytanganadroid.precise.fragment.callback;
 
 
 public class PreciseFragmentDelegate {
@@ -59,7 +59,7 @@ public class PreciseFragmentDelegate {
                 makeFragmentInvisible(triggerByOnResumeOrOnPause);
             }
         } else {
-            DummyDebugLog.d("SupportPreciseFragment", "toggleFragmentVisibility : Ignored as fragment never has been on resumed");
+            DebugLog.d("SupportPreciseFragment", "toggleFragmentVisibility : Ignored as fragment never has been on resumed");
         }
 
     }
@@ -79,7 +79,7 @@ public class PreciseFragmentDelegate {
                 callback.onFragmentInvisible(fromResume);
             }
         } else {
-            DummyDebugLog.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already invisible to user");
+            DebugLog.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already invisible to user");
         }
     }
 
@@ -102,7 +102,7 @@ public class PreciseFragmentDelegate {
                 callback.onFragmentVisible(triggerByOnResumeOrOnPause);
             }
         } else {
-            DummyDebugLog.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already visible to user");
+            DebugLog.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already visible to user");
         }
     }
 
