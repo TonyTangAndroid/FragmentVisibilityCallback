@@ -1,43 +1,40 @@
 package com.github.tonytanganadroid.precisefragment;
 
 
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import hugo.weaving.DebugLog;
 
-public abstract class SupportPreciseFragment extends Fragment {
+public abstract class PreciseFragmentDelegate {
 
     private boolean upcomingFragmentVisibilityToUser;
     private boolean currentFragmentVisibilityToUser;
     private boolean shouldForceHideFragment;
     private boolean hasFragmentEverOnResumed;
+    private PreciseFragmentDelegateCallback callback;
 
+    public void setPreciseFragmentDelegateCallback(PreciseFragmentDelegateCallback callback) {
+        this.callback = callback;
+    }
 
     @DebugLog
-    @Override
     public void onResume() {
-        super.onResume();
         markFragmentEverOnResumed();
         updateUpcomingFramgentVisibility(true);
         toggleFragmentVisibility(true);
     }
 
-
     @DebugLog
-    @Override
+
     final public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
         toggleFragmentVisibilityForceHiddenStatus(isVisibleToUser);
         updateUpcomingFramgentVisibility(isVisibleToUser);
         toggleFragmentVisibility(false);
     }
 
-
     @DebugLog
-    @Override
+
     public void onPause() {
-        super.onPause();
         makeFragmentInvisible(true);
 
     }
@@ -58,12 +55,10 @@ public abstract class SupportPreciseFragment extends Fragment {
         }
     }
 
-
     @DebugLog
     private void updateUpcomingFramgentVisibility(boolean upcomingFragmentVisibility) {
         this.upcomingFragmentVisibilityToUser = upcomingFragmentVisibility;
     }
-
 
     private void toggleFragmentVisibility(boolean triggerByOnResumeOrOnPause) {
         if (hasFragmentEverOnResumed()) {
@@ -89,7 +84,9 @@ public abstract class SupportPreciseFragment extends Fragment {
     private void makeFragmentInvisible(boolean fromResume) {
         if (needToBecomingInvisible()) {
             markFragmentInvisibleToUser();
-            onFragmentInvisible(fromResume);
+            if (callback != null) {
+                callback.onFragmentInvisible(fromResume);
+            }
         } else {
             Log.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already invisible to user");
         }
@@ -107,11 +104,12 @@ public abstract class SupportPreciseFragment extends Fragment {
         return currentFragmentVisibilityToUser;
     }
 
-
     private void makeFragmentVisible(boolean triggerByOnResumeOrOnPause) {
         if (readyToBecomeVisible()) {
             markFragmentVisibleToUser();
-            onFragmentVisible(triggerByOnResumeOrOnPause);
+            if (callback != null) {
+                callback.onFragmentVisible(triggerByOnResumeOrOnPause);
+            }
         } else {
             Log.d("SupportPreciseFragment", "makeFragmentInvisible : Ignored as fragment is already visible to user");
         }
@@ -133,15 +131,22 @@ public abstract class SupportPreciseFragment extends Fragment {
         hasFragmentEverOnResumed = true;
     }
 
-    /**
-     * @param triggeredByOnResume true if the event is triggered by onResume event, false otherwise.
-     */
-    public abstract void onFragmentVisible(boolean triggeredByOnResume);
 
     /**
-     * @param triggeredByOnPause true if the event is triggered by onPause event, false otherwise.
+     * Call back when fragment is becoming visible or invisible to user. These fragment could also be applied to fragment in view pager,
+     * which means that only the selected fragment is visible to user.
      */
-    public abstract void onFragmentInvisible(boolean triggeredByOnPause);
+    public interface PreciseFragmentDelegateCallback {
+        /**
+         * @param triggeredByOnResume true if the event is triggered by onResume event, false otherwise.
+         */
+        void onFragmentVisible(boolean triggeredByOnResume);
 
+        /**
+         * @param triggeredByOnPause true if the event is triggered by onPause event, false otherwise.
+         */
+        void onFragmentInvisible(boolean triggeredByOnPause);
+
+    }
 
 }
