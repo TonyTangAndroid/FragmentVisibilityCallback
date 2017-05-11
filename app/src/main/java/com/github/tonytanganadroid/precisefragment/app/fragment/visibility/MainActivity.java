@@ -1,9 +1,11 @@
-package com.github.tonytanganadroid.precisefragment.app;
+package com.github.tonytanganadroid.precisefragment.app.fragment.visibility;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.github.tonytanganadroid.precisefragment.app.R;
 
 public class MainActivity extends AppCompatActivity {
 

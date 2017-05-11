@@ -19,7 +19,7 @@ import hugo.weaving.DebugLog;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SampleFragment extends Fragment implements PreciseFragmentDelegate.PreciseFragmentDelegateCallback {
+public class BadgeFragment extends Fragment implements PreciseFragmentDelegate.PreciseFragmentDelegateCallback {
 
 
     /**
@@ -34,8 +34,8 @@ public class SampleFragment extends Fragment implements PreciseFragmentDelegate.
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static SampleFragment newInstance(int sectionNumber) {
-        SampleFragment fragment = new SampleFragment();
+    public static BadgeFragment newInstance(int sectionNumber) {
+        BadgeFragment fragment = new BadgeFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

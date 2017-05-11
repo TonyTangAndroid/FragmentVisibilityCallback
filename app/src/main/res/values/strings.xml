@@ -1,4 +1,22 @@
 <resources>
+
+
+    <color name="color_notification_back">#ffcd33</color>
+    <color name="color_notification_text">#3E4757</color>
+
+    <array name="tab_colors">
+        <item name="tab_1">#455C65</item>
+        <item name="tab_2">#00886A</item>
+        <item name="tab_3">#8B6B62</item>
+        <item name="tab_4">#6C4A42</item>
+        <item name="tab_5">#F63D2B</item>
+    </array>
+
+    <string name="menu_badge">Badge</string>
+    <string name="menu_key">Key</string>
+    <string name="menu_inbox">Inbox</string>
+
+
     <string name="app_name">PreciseFragment</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
