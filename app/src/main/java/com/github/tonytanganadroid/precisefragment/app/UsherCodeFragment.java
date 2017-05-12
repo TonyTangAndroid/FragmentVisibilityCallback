@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,18 +58,21 @@ public class UsherCodeFragment extends Fragment implements PreciseFragmentDelega
         }
     }
 
+    @DebugLog
     @Override
     public void onResume() {
         super.onResume();
         preciseFragmentDelegate.onResume();
     }
 
+    @DebugLog
     @Override
     public void onPause() {
         super.onPause();
         preciseFragmentDelegate.onPause();
     }
 
+    @DebugLog
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -120,15 +125,15 @@ public class UsherCodeFragment extends Fragment implements PreciseFragmentDelega
     }
 
 
-    //@DebugLog
+    @DebugLog
     @Override
     public void onFragmentVisible(boolean triggeredByOnResume) {
-//        Log.d("onFragmentVisibility", "visible badge id :" + badgeId + ", triggeredByOnResume:" + triggeredByOnResume);
+        Log.d("onFragmentVisibility", "visible badge id :" + badgeId + ", triggeredByOnResume:" + triggeredByOnResume);
     }
 
-    //@DebugLog
+    @DebugLog
     @Override
     public void onFragmentInvisible(boolean triggeredByOnPause) {
-//        Log.d("onFragmentVisibility", "invisible badge id:" + badgeId + ", triggeredByOnPause:" + triggeredByOnPause);
+        Log.d("onFragmentVisibility", "invisible badge id:" + badgeId + ", triggeredByOnPause:" + triggeredByOnPause);
     }
 }

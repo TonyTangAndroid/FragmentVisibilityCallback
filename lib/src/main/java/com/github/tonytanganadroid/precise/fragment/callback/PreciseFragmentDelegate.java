@@ -15,14 +15,14 @@ public class PreciseFragmentDelegate {
 
     final public void onResume() {
         markFragmentEverOnResumed();
-        updateUpcomingFramgentVisibility(true);
+        updateUpcomingFragmentVisibility(true);
         toggleFragmentVisibility(true);
     }
 
 
     final public void setUserVisibleHint(boolean isVisibleToUser) {
         toggleFragmentVisibilityForceHiddenStatus(isVisibleToUser);
-        updateUpcomingFramgentVisibility(isVisibleToUser);
+        updateUpcomingFragmentVisibility(isVisibleToUser);
         toggleFragmentVisibility(false);
     }
 
@@ -47,7 +47,7 @@ public class PreciseFragmentDelegate {
         }
     }
 
-    private void updateUpcomingFramgentVisibility(boolean upcomingFragmentVisibility) {
+    private void updateUpcomingFragmentVisibility(boolean upcomingFragmentVisibility) {
         this.upcomingFragmentVisibilityToUser = upcomingFragmentVisibility;
     }
 
