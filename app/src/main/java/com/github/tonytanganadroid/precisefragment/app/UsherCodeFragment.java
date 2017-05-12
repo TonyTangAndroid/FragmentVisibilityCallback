@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import hugo.weaving.DebugLog;
 /**
  * A placeholder fragment containing a simple view.
  */
-@DebugLog
 public class UsherCodeFragment extends Fragment implements PreciseFragmentDelegate.PreciseFragmentDelegateCallback {
 
 
@@ -85,19 +83,14 @@ public class UsherCodeFragment extends Fragment implements PreciseFragmentDelega
         }
     }
 
-    //@DebugLog
+    @DebugLog
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         badgeId = getArguments().getInt(ARG_BADGE_ID);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    //@DebugLog
+    @DebugLog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,15 +100,35 @@ public class UsherCodeFragment extends Fragment implements PreciseFragmentDelega
         return rootView;
     }
 
+
+    @DebugLog
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @DebugLog
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @DebugLog
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+
     //@DebugLog
     @Override
     public void onFragmentVisible(boolean triggeredByOnResume) {
-        Log.d("onFragmentVisibility", "visible badge id :" + badgeId + ", triggeredByOnResume:" + triggeredByOnResume);
+//        Log.d("onFragmentVisibility", "visible badge id :" + badgeId + ", triggeredByOnResume:" + triggeredByOnResume);
     }
 
     //@DebugLog
     @Override
     public void onFragmentInvisible(boolean triggeredByOnPause) {
-        Log.d("onFragmentVisibility", "invisible badge id:" + badgeId + ", triggeredByOnPause:" + triggeredByOnPause);
+//        Log.d("onFragmentVisibility", "invisible badge id:" + badgeId + ", triggeredByOnPause:" + triggeredByOnPause);
     }
 }
