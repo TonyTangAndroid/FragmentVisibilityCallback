@@ -9,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import hugo.weaving.DebugLog;
-
-@DebugLog
+//@DebugLog
 public class BadgeCollectionsFragment extends Fragment {
 
 
@@ -37,31 +35,31 @@ public class BadgeCollectionsFragment extends Fragment {
 
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public void onResume() {
         super.onResume();
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public void onPause() {
         super.onPause();
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public void onDestroyView() {
         super.onDestroyView();

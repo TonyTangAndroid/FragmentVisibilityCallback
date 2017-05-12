@@ -12,7 +12,7 @@ import hugo.weaving.DebugLog;
 
 public class ViewPagerActivity extends AppCompatActivity {
 
-    @DebugLog
+    //@DebugLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

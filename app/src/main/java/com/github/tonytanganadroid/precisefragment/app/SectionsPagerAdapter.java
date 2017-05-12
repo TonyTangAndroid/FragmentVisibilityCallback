@@ -11,7 +11,7 @@ import android.support.v13.app.FragmentPagerAdapter;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public static final int COUNT = 4;
+    public static final int COUNT = 1;
 
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);

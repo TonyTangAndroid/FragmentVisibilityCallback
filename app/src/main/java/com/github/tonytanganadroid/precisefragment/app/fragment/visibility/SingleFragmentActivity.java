@@ -6,11 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.github.tonytanganadroid.precisefragment.app.BadgeFragment;
 import com.github.tonytanganadroid.precisefragment.app.R;
 
-import hugo.weaving.DebugLog;
-
 public class SingleFragmentActivity extends AppCompatActivity {
 
-    @DebugLog
+    //@DebugLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

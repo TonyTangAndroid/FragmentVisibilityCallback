@@ -14,28 +14,31 @@ import android.widget.TextView;
 
 import com.github.tonytanganadroid.precise.fragment.callback.PreciseFragmentDelegate;
 
+import hugo.weaving.DebugLog;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-public class KeyFragment extends Fragment implements PreciseFragmentDelegate.PreciseFragmentDelegateCallback {
+@DebugLog
+public class UsherCodeFragment extends Fragment implements PreciseFragmentDelegate.PreciseFragmentDelegateCallback {
 
 
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_BADGE_ID = "badge_id";
     PreciseFragmentDelegate preciseFragmentDelegate = null;
-    private int sectionNumber;
+    private int badgeId;
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static KeyFragment newInstance(int sectionNumber) {
-        KeyFragment fragment = new KeyFragment();
+    public static UsherCodeFragment newInstance(int sectionNumber) {
+        UsherCodeFragment fragment = new UsherCodeFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putInt(ARG_BADGE_ID, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +48,6 @@ public class KeyFragment extends Fragment implements PreciseFragmentDelegate.Pre
         super.onAttach(context);
         ensurePreciseFragmentDelegate();
     }
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -76,6 +78,7 @@ public class KeyFragment extends Fragment implements PreciseFragmentDelegate.Pre
 
     }
 
+
     private void ensurePreciseFragmentDelegate() {
         if (preciseFragmentDelegate == null) {
             preciseFragmentDelegate = new PreciseFragmentDelegate(this);
@@ -86,28 +89,33 @@ public class KeyFragment extends Fragment implements PreciseFragmentDelegate.Pre
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+        badgeId = getArguments().getInt(ARG_BADGE_ID);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     //@DebugLog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_badge, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText(getString(R.string.section_format, sectionNumber));
+        View rootView = inflater.inflate(R.layout.fragment_usher_code, container, false);
+        TextView textView = (TextView) rootView.findViewById(R.id.tv_usher_code);
+        textView.setText(getString(R.string.usher_code_for_badge, badgeId));
         return rootView;
     }
 
     //@DebugLog
     @Override
     public void onFragmentVisible(boolean triggeredByOnResume) {
-        Log.d("onFragmentVisibility", "visible section number :" + sectionNumber + ", triggeredByOnResume:" + triggeredByOnResume);
+        Log.d("onFragmentVisibility", "visible badge id :" + badgeId + ", triggeredByOnResume:" + triggeredByOnResume);
     }
 
     //@DebugLog
     @Override
     public void onFragmentInvisible(boolean triggeredByOnPause) {
-        Log.d("onFragmentVisibility", "invisible section number :" + sectionNumber + ", triggeredByOnPause:" + triggeredByOnPause);
+        Log.d("onFragmentVisibility", "invisible badge id:" + badgeId + ", triggeredByOnPause:" + triggeredByOnPause);
     }
 }

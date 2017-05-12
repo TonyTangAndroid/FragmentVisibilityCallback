@@ -10,21 +10,11 @@
 
 
     <TextView
-        android:id="@+id/section_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <ScrollView
+        android:id="@+id/tv_usher_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/section_label"
-        android:layout_marginTop="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/long_string"/>
-    </ScrollView>
+        android:text="1234"
+        tools:ignore="HardcodedText"/>
 
 
 </RelativeLayout>

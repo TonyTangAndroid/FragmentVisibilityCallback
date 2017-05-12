@@ -2,6 +2,7 @@ package com.github.tonytanganadroid.precisefragment.app;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import hugo.weaving.DebugLog;
 /**
  * A placeholder fragment containing a simple view.
  */
+@DebugLog
 public class BadgeFragment extends Fragment implements PreciseFragmentDelegate.PreciseFragmentDelegateCallback {
 
 
@@ -84,30 +86,40 @@ public class BadgeFragment extends Fragment implements PreciseFragmentDelegate.P
         }
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_badge, container, false);
         TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         textView.setText(getString(R.string.section_format, sectionNumber));
         return rootView;
     }
 
-    @DebugLog
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Fragment videoFragment = UsherCodeFragment.newInstance(sectionNumber);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.add(R.id.fl_usher_code, videoFragment).commit();
+
+    }
+
+    //@DebugLog
     @Override
     public void onFragmentVisible(boolean triggeredByOnResume) {
         Log.d("onFragmentVisibility", "visible section number :" + sectionNumber + ", triggeredByOnResume:" + triggeredByOnResume);
     }
 
-    @DebugLog
+    //@DebugLog
     @Override
     public void onFragmentInvisible(boolean triggeredByOnPause) {
         Log.d("onFragmentVisibility", "invisible section number :" + sectionNumber + ", triggeredByOnPause:" + triggeredByOnPause);
