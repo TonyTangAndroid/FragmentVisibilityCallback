@@ -106,9 +106,12 @@ public class BadgeFragment extends Fragment implements PreciseFragmentDelegate.P
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Fragment videoFragment = UsherCodeFragment.newInstance(sectionNumber);
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.fl_usher_code, videoFragment).commit();
+        if (savedInstanceState==null){
+            Fragment usherCodeFragment = UsherCodeFragment.newInstance(sectionNumber);
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.add(R.id.fl_usher_code, usherCodeFragment).commit();
+        }
+
 
     }
 
